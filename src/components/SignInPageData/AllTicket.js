@@ -74,6 +74,8 @@ const AllTicket = () => {
         </div>
       </div>
     </nav>
+    
+    <div className="container-fluid">
     <form >
         
         <div className="form-group">
@@ -95,13 +97,8 @@ const AllTicket = () => {
                   Update
                 </Button>
       </form>
-    <div className="container-fluid">
       <h1>All tickets</h1>
-      <input type="text" placeholder="search..."  onChange={(e)=>{
-      console.log("ok")
-      const tickets1=tickets.filter((movie)=>{movie.movieName.includes(e)});
-      console.log(tickets1);
-      }}/>
+      
       
       <Table striped bordered hover data={tickets}>
         <thead>
@@ -166,7 +163,13 @@ const AllTicket = () => {
         </div>
       </div>
     </nav>
-    <h2>only admin access</h2>
+    <div className="container-fluid">
+          <header>
+            <h1>Only Admin has access</h1>
+          </header>
+          
+         
+        </div>
     </div>
   );
   }
