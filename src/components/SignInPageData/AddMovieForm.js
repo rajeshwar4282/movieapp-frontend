@@ -40,12 +40,12 @@ const AddMovieForm = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/AddData">Home</Link>
+             <li className="nav-item">
+                <Link className="nav-link" to="/User">Home</Link>
               </li>
               
               <li className="nav-item">
-                <Link className="nav-link" to="/AddMovieForm">Add Movie</Link>
+                <Link className="nav-link" to="/AddTicket">Add Ticket</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/AllMovie">Movies List</Link>
@@ -55,6 +55,9 @@ const AddMovieForm = () => {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/AllTicket">Bookings</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ResetPassword">reset password</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/">Logout</Link>

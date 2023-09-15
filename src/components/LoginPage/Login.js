@@ -18,10 +18,18 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const { loginId, password } = credentials;
+    const headers1 = {
+  'Content-Type': 'application/json'
+}
+
     if (loginId) {
       axios
-        .post('http://localhost:8082/login', null, { params: { loginId, password } })
+        .post('http://localhost:8082/api/v1.0/moviebooking/login/', credentials, {headers: headers1})
         .then((response) => {
+         console.log(response.data.accessToken);
+         localStorage.setItem('JWT_TOKEN',response.data.accessToken);
+         localStorage.setItem('ROLES',response.data.roles);
+         console.log(localStorage.getItem('ROLES'));
           console.log(response.data);
           // Handle success response here
           // Redirect to the addData page

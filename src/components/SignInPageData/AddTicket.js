@@ -6,18 +6,17 @@ import './MainCSS.css';
 const AddTicket = () => {
     
   const [ticket, setTicket] = useState({
-    id: '',
-    movieId: '',
+    _id: null,
+    movieName:'',
     theatreName: '',
-    numTickets: 0,
-    seatNumbers: [],
-    status: ''
+    noOfTickets: 0,
+    seatNumber: []
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "seatNumbers") {
-      const seatNumbers = value.split(",").map((num) => num.trim()); // Split the input string and trim whitespace
-      setTicket((prevTicket) => ({ ...prevTicket, [name]: seatNumbers }));
+    if (name === "seatNumber") {
+      const seatNumber = value.split(",").map((num) => num.trim()); // Split the input string and trim whitespace
+      setTicket((prevTicket) => ({ ...prevTicket, [name]: seatNumber }));
     } else {
       setTicket((prevTicket) => ({ ...prevTicket, [name]: value }));
     }
@@ -30,8 +29,13 @@ const AddTicket = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const headers1 = {
+    'Authorization': `Bearer ${localStorage.getItem('JWT_TOKEN')}` ,
+    'Content-Type': 'application/json'
+    
+     };
     axios
-      .post('http://localhost:8080/addTicket', ticket) // Replace with your backend API endpoint
+      .post(`http://localhost:8082/api/v1.0/moviebooking/${ticket.movieName}/add`, ticket,{headers:headers1}) 
       .then((response) => {
         console.log(response.data);
         alert("Ticket booked!!!");
@@ -54,24 +58,24 @@ const AddTicket = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/AddData">Home</Link>
-            </li>
-            
-            <li className="nav-item">
-              <Link className="nav-link" to="/AddMovieForm">Add Movie</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/AllMovie">Movies List</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/DeleteMovie">Delete Movie</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/AllTicket">Bookings</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/">Logout</Link>
-            </li>
+                <Link className="nav-link" to="/User">Home</Link>
+              </li>
+              
+              <li className="nav-item">
+                <Link className="nav-link" to="/AddTicket">Add Ticket</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/DeleteMovie">ALL Movies</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/AllTicket">all Tickets</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ResetPassword">reset password</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Logout</Link>
+              </li>
           </ul>
         </div>
       </div>
@@ -80,25 +84,15 @@ const AddTicket = () => {
     <div className="container-fluid">
       <h1>Add Ticket</h1>
       <form onSubmit={handleSubmit}>
+        
         <div className="form-group">
-          <label htmlFor="id">ID:</label>
+          <label htmlFor="movieId">Movie Name:</label>
           <input
             type="text"
             className="form-control"
-            id="id"
-            name="id"
-            value={ticket.id}
-            onChange={handleChange}
-          required/>
-        </div>
-        <div className="form-group">
-          <label htmlFor="movieId">Movie ID:</label>
-          <input
-            type="text"
-            className="form-control"
-            id="movieId"
-            name="movieId"
-            value={ticket.movieId}
+            id="movieName"
+            name="movieName"
+            value={ticket.movieName}
             onChange={handleChange}
           />
         </div>
@@ -114,38 +108,28 @@ const AddTicket = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="numTickets">Number of Tickets:</label>
+          <label htmlFor="noOfTickets">Number of Tickets:</label>
           <input
             type="number"
             className="form-control"
-            id="numTickets"
-            name="numTickets"
-            value={ticket.numTickets}
+            id="noOfTickets"
+            name="noOfTickets"
+            value={ticket.noOfTickets}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="seatNumbers">Seat Numbers:</label>
+          <label htmlFor="seatNumbers">Seat Number:</label>
           <input
             type="text"
             className="form-control"
-            id="seatNumbers"
-            name="seatNumbers"
-            value={ticket.seatNumbers}
+            id="seatNumber"
+            name="seatNumber"
+            value={ticket.seatNumber}
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="status">Status:</label>
-          <input
-            type="text"
-            className="form-control"
-            id="status"
-            name="status"
-            value={ticket.status}
-            onChange={handleChange}
-          />
-        </div>
+        
         <button type="submit" className="btn btn-primary">Add Ticket</button>
       </form>
       <footer>

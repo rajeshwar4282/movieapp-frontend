@@ -3,14 +3,15 @@ import axios from 'axios';
 import './UserRegistrationForm.css';
 const UserRegistrationForm = () => {
   
-  const userrole = new Set(["user"]);
+   const userrole = new Set(['user']);
+   const userrole1=Array.from(userrole);
   const [user, setUser] = useState({
     loginId: '',
     firstName: '',
     lastName: '',
     email: '',
     contactNumber: '',
-    roles: userrole,
+    roles: userrole1,
     password: ''
     
   });
@@ -20,8 +21,11 @@ const UserRegistrationForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const headers1 = {
+  'Content-Type': 'application/json'
+}
     axios
-      .post('http://localhost:8080/register', user)
+      .post('http://localhost:8082/api/v1.0/moviebooking/register/', user,{headers:headers1})
       .then((response) => {
         console.log(response.data);
         alert("LoginId created");
@@ -30,7 +34,7 @@ const UserRegistrationForm = () => {
         
       })
       .catch((error) => {
-        console.error(error.response.data);
+        console.error(error);
         // Handle error here
         alert("Login ID is already taken");
       });

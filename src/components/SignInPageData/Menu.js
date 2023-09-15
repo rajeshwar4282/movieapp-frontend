@@ -14,24 +14,24 @@ const Menu = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/AddData">Home</Link>
-            </li>
-            
-            <li className="nav-item">
-              <Link className="nav-link" to="/AddMovieForm">Add Movie</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/AllMovie">Movies List</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/DeleteMovie">Delete Movie</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/AllTicket">Bookings</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/">Logout</Link>
-            </li>
+                <Link className="nav-link" to="/User">Home</Link>
+              </li>
+              
+              <li className="nav-item">
+                <Link className="nav-link" to="/AddTicket">Add Ticket</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/DeleteMovie">ALL Movies</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/AllTicket">all Tickets</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ResetPassword">reset password</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Logout</Link>
+              </li>
           </ul>
         </div>
       </div>

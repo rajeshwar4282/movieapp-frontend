@@ -11,25 +11,57 @@ const DeleteMovie = () => {
   }, []);
 
   const fetchMovies = async () => {
-    try {
-      const response = await axios.get('http://localhost:8080/all'); // Replace with your backend API endpoint
-      setMovies(response.data);
-    } catch (error) {
-      console.error(error);
-      // Handle error, e.g., show an error message
-    }
+    const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem('JWT_TOKEN')}` 
+    
+     }
+     };
+     
+      axios
+        .get('http://localhost:8082/api/v1.0/moviebooking/all',config,{maxRedirects:0})
+        .then((response) => {
+        console.log(response.data);
+         setMovies(response.data);
+        console.log(movies[0]);
+        console.log(typeof movies[0]);
+        console.log(typeof response.data)
+    
+      })
   };
 
-  const deleteMovie = async (movieName, id) => {
-    try {
-      await axios.delete(`http://localhost:8080/${movieName}/delete/${id}`); // Replace with your backend API endpoint
-      fetchMovies();
-    } catch (error) {
-      console.error(error);
-      // Handle error, e.g., show an error message
-    }
+  const deleteMovie = async (movieName) => {
+    
+    const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem('JWT_TOKEN')}` 
+    
+     }
+     };
+     
+      axios
+      .delete(`http://localhost:8082/api/v1.0/moviebooking/${movieName}/delete`,config,{maxRedirects:0})
+        .then((response) => {
+        
+        alert(response.data);
+        fetchMovies();
+      })
   };
-
+  const updateMovie = async (movieName) => {
+    
+    const config = {
+    headers: { Authorization: `Bearer ${localStorage.getItem('JWT_TOKEN')}` 
+    
+     }
+     };
+     
+      axios
+      .get(`http://localhost:8082/api/v1.0/moviebooking/${movieName}/update`,config,{maxRedirects:0})
+        .then((response) => {
+        
+        alert(response.data);
+        fetchMovies();
+      })
+  };
+  if(localStorage.getItem('ROLES').includes('ADMIN')){
   return (
     <div>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -41,24 +73,24 @@ const DeleteMovie = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/AddData">Home</Link>
-            </li>
-            
-            <li className="nav-item">
-              <Link className="nav-link" to="/AddMovieForm">Add Movie</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/AllMovie">Movies List</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/DeleteMovie">Delete Movie</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/AllTicket">Bookings</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/">Logout</Link>
-            </li>
+                <Link className="nav-link" to="/User">Home</Link>
+              </li>
+              
+              <li className="nav-item">
+                <Link className="nav-link" to="/AddTicket">Add Ticket</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/DeleteMovie">ALL Movies</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/AllTicket">all Tickets</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ResetPassword">reset password</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Logout</Link>
+              </li>
           </ul>
         </div>
       </div>
@@ -67,40 +99,120 @@ const DeleteMovie = () => {
     <div className="container-fluid">
       <h1>Movie List</h1>
       <Table striped bordered hover>
-        <thead>
+      <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th>movieName</th>
             <th>Theatre Name</th>
-            <th>Release Date</th>
-            <th>Action</th>
+            <th>Tickets available</th>
+            <th>Ticketsstatus</th>
+            <th>Release date</th>
+            <th>Delete</th>
+            <th>Update ticket status</th>
           </tr>
         </thead>
         <tbody>
           {movies.map((movie) => (
-            <tr key={movie.id}>
-              <td>{movie.id}</td>
-              <td>{movie.name}</td>
+            <tr >
+              <td>{movie.movieName}</td>
               <td>{movie.theatreName}</td>
-              <td>{movie.releaseDate}</td>
+              <td>{movie.noOfTicketsAvailable}</td>
+              <td>{movie.ticketsStatus}</td>
+              <td>{movie._id.date.substring(10,0)}</td>
               <td>
                 <Button
                   variant="danger"
-                  onClick={() => deleteMovie(movie.name, movie.id)}
+                  onClick={() => deleteMovie(movie.movieName)}
                 >
                   Delete
+                </Button>
+              </td>
+              <td>
+                <Button
+                  variant="warning"
+                  onClick={() => updateMovie(movie.movieName)}
+                >
+                  Update
                 </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
+       </Table>
       <footer>
             <p>&copy; {new Date().getFullYear()} Movie Booking App</p>
           </footer>
     </div>
     </div>
   );
+  }
+  else{
+  return (
+    <div>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container">
+        <Link className="navbar-brand" to="/">MovieBook App</Link>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ml-auto">
+            <li className="nav-item">
+                <Link className="nav-link" to="/User">Home</Link>
+              </li>
+              
+              <li className="nav-item">
+                <Link className="nav-link" to="/AddTicket">Add Ticket</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/DeleteMovie">ALL Movies</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/AllTicket">all Tickets</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ResetPassword">reset password</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Logout</Link>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div className="container-fluid">
+      <h1>Movie List</h1>
+      <Table striped bordered hover>
+      <thead>
+          <tr>
+            <th>movieName</th>
+            <th>Theatre Name</th>
+            <th>Tickets available</th>
+            <th>Ticketsstatus</th>
+            <th>Release date</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {movies.map((movie) => (
+            <tr >
+              <td>{movie.movieName}</td>
+              <td>{movie.theatreName}</td>
+              <td>{movie.noOfTicketsAvailable}</td>
+              <td>{movie.ticketsStatus}</td>
+              <td>{movie._id.date.substring(10,0)}</td>
+              
+            </tr>
+          ))}
+        </tbody>
+       </Table>
+      <footer>
+            <p>&copy; {new Date().getFullYear()} Movie Booking App</p>
+          </footer>
+    </div>
+    </div>
+  );
+  }
 };
 
 export default DeleteMovie;

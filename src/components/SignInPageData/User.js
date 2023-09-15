@@ -13,7 +13,7 @@ function User(){
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
+            <li className="nav-item">
                 <Link className="nav-link" to="/User">Home</Link>
               </li>
               
@@ -21,16 +21,18 @@ function User(){
                 <Link className="nav-link" to="/AddTicket">Add Ticket</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/AllMovie">Movies List</Link>
+                <Link className="nav-link" to="/DeleteMovie">ALL Movies</Link>
               </li>
-              
               <li className="nav-item">
-                <Link className="nav-link" to="/AllTicket">Bookings</Link>
+                <Link className="nav-link" to="/AllTicket">all Tickets</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/ResetPassword">reset password</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/">Logout</Link>
               </li>
-            </ul>
+          </ul>
           </div>
         </div>
       </nav>
