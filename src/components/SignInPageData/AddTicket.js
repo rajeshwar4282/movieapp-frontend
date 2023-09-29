@@ -35,7 +35,7 @@ const AddTicket = () => {
     
      };
     axios
-      .post(`http://localhost:8082/api/v1.0/moviebooking/${ticket.movieName}/add`, ticket,{headers:headers1}) 
+      .post(`http://moovieapp-backend-1584628557.us-east-1.elb.amazonaws.com:8080/api/v1.0/moviebooking/${ticket.movieName}/add`, ticket,{headers:headers1}) 
       .then((response) => {
         console.log(response.data);
         alert("Ticket booked!!!");
@@ -44,6 +44,7 @@ const AddTicket = () => {
       .catch((error) => {
         console.error(error);
         // Handle error, e.g., show an error message
+        alert(error);
       });
   };
 

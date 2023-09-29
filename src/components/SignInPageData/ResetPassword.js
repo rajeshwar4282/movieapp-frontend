@@ -29,7 +29,7 @@ function ResetPassword() {
     
      };
     axios
-      .put(`http://localhost:8082/api/v1.0/moviebooking/${loginId}/forgot`,config,{headers:headers1})
+      .put(`http://moovieapp-backend-1584628557.us-east-1.elb.amazonaws.com:8080/api/v1.0/moviebooking/${loginId}/forgot`,config,{headers:headers1})
       .then((response) => {
         console.log(response);
         setMessage('Password reset successfully.');

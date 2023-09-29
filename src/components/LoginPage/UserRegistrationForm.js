@@ -25,7 +25,7 @@ const UserRegistrationForm = () => {
   'Content-Type': 'application/json'
 }
     axios
-      .post('http://localhost:8082/api/v1.0/moviebooking/register/', user,{headers:headers1})
+      .post('http://moovieapp-backend-1584628557.us-east-1.elb.amazonaws.com:8080/api/v1.0/moviebooking/register/', user,{headers:headers1})
       .then((response) => {
         console.log(response.data);
         alert("LoginId created");

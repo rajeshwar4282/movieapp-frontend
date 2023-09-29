@@ -18,7 +18,7 @@ const DeleteMovie = () => {
      };
      
       axios
-        .get('http://localhost:8082/api/v1.0/moviebooking/all',config,{maxRedirects:0})
+        .get('http://moovieapp-backend-1584628557.us-east-1.elb.amazonaws.com:8080/api/v1.0/moviebooking/all',config,{maxRedirects:0})
         .then((response) => {
         console.log(response.data);
          setMovies(response.data);
@@ -38,7 +38,7 @@ const DeleteMovie = () => {
      };
      
       axios
-      .delete(`http://localhost:8082/api/v1.0/moviebooking/${movieName}/delete`,config,{maxRedirects:0})
+      .delete(`http://moovieapp-backend-1584628557.us-east-1.elb.amazonaws.com:8080/api/v1.0/moviebooking/${movieName}/delete`,config,{maxRedirects:0})
         .then((response) => {
         
         alert(response.data);
