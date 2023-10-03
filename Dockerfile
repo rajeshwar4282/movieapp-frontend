@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:16-alpine
 WORKDIR /react-docker-example/
 COPY public/ /react-docker-example/public
 COPY src/ /react-docker-example/src
